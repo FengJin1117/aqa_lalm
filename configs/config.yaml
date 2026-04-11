@@ -1,0 +1,10 @@
+model:
+  name: Qwen/Qwen2.5-Omni-7B
+  dtype: bf16
+
+data:
+  json_path: ./mmau-test-mini.json
+  audio_root: /data/fengwenhao/datasets/test-mini-audios
+
+eval:
+  max_samples: 100
