@@ -1,7 +1,13 @@
+# 编译文件
+__pycache__/
+*.ipynb_checkpoints
+
+# 数据类
 data/
+output/
 outputs/
+logs/
+examples/
 *.wav
 *.pt
 *.ckpt
-__pycache__/
-*.ipynb_checkpoints

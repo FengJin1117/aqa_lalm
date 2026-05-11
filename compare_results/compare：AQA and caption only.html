@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Comparison Report</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    background: #f5f7fa;
+    padding: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.a { color: #1f77b4; }
+.b { color: #d62728; }
+</style>
+</head>
+
+<body>
+
+<h1>📊 Benchmark Comparison</h1>
+
+<div class="card">
+<h2>Overall</h2>
+<p>Direct AQA: <b>74.30%</b></p>
+<p>Based on Qwen3 Captioner Caption: <b>62.10%</b></p>
+<p>Delta: <span style="color:red">-12.20%</span></p>
+</div>
+
+<div class="card">
+<h2>🚀 Top Improvements (Sub-category)</h2>
+<ul>
+<li>Phonemic Stress Pattern Analysis: <span style="color:green">+7.55%</span></li><li>Event-Based Knowledge Retrieval: <span style="color:green">+6.06%</span></li><li>Phonological Sequence Decoding: <span style="color:green">+4.08%</span></li><li>Counting: <span style="color:green">+3.45%</span></li><li>Dissonant Emotion Interpretation: <span style="color:green">+2.86%</span></li></ul></div>
+<div class="card">
+<h2>Task Comparison (sorted by improvement)</h2>
+<table class="table">
+<tr><th>Task</th><th>A</th><th>B</th><th>Δ</th></tr>
+
+<tr>
+<td>speech</td>
+<td class="a">72.07% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:72px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">72.07% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:72px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+0.00%</span></td>
+</tr>
+
+<tr>
+<td>music</td>
+<td class="a">69.76% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:69px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">55.39% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:55px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-14.37%</span></td>
+</tr>
+
+<tr>
+<td>sound</td>
+<td class="a">81.08% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:81px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">58.86% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:58px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-22.22%</span></td>
+</tr>
+</table></div>
+<div class="card">
+<h2>Sub-category Comparison (sorted by improvement)</h2>
+<table class="table">
+<tr><th>Category</th><th>A</th><th>B</th><th>Δ</th></tr>
+
+<tr>
+<td>Phonemic Stress Pattern Analysis</td>
+<td class="a">52.83% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:52px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">60.38% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:60px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+7.55%</span></td>
+</tr>
+
+<tr>
+<td>Event-Based Knowledge Retrieval</td>
+<td class="a">69.70% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:69px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">75.76% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:75px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+6.06%</span></td>
+</tr>
+
+<tr>
+<td>Phonological Sequence Decoding</td>
+<td class="a">81.63% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:81px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">85.71% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:85px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+4.08%</span></td>
+</tr>
+
+<tr>
+<td>Counting</td>
+<td class="a">55.17% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:55px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">58.62% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:58px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+3.45%</span></td>
+</tr>
+
+<tr>
+<td>Dissonant Emotion Interpretation</td>
+<td class="a">97.14% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:97px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">100.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:100px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+2.86%</span></td>
+</tr>
+
+<tr>
+<td>Emotion Flip Detection</td>
+<td class="a">40.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:40px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">40.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:40px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+0.00%</span></td>
+</tr>
+
+<tr>
+<td>Multi Speaker Role Mapping</td>
+<td class="a">100.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:100px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">100.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:100px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+0.00%</span></td>
+</tr>
+
+<tr>
+<td>Lyrical Reasoning</td>
+<td class="a">90.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:90px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">90.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:90px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:green">+0.00%</span></td>
+</tr>
+
+<tr>
+<td>Temporal Event Reasoning</td>
+<td class="a">68.75% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:68px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">64.58% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:64px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-4.17%</span></td>
+</tr>
+
+<tr>
+<td>Rhythm and Tempo Understanding</td>
+<td class="a">58.70% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:58px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">54.35% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:54px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-4.35%</span></td>
+</tr>
+
+<tr>
+<td>Conversational Fact Retrieval</td>
+<td class="a">95.45% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:95px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">90.91% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:90px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-4.55%</span></td>
+</tr>
+
+<tr>
+<td>Key highlight Extraction</td>
+<td class="a">95.24% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:95px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">90.48% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:90px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-4.76%</span></td>
+</tr>
+
+<tr>
+<td>Temporal Reasoning</td>
+<td class="a">33.93% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:33px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">28.57% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:28px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-5.36%</span></td>
+</tr>
+
+<tr>
+<td>Event-Based Sound Reasoning</td>
+<td class="a">87.50% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:87px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">81.25% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:81px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-6.25%</span></td>
+</tr>
+
+<tr>
+<td>Eco-Acoustic Knowledge</td>
+<td class="a">74.47% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:74px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">65.96% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:65px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-8.51%</span></td>
+</tr>
+
+<tr>
+<td>Musical Genre Reasoning</td>
+<td class="a">82.35% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:82px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">67.65% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:67px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-14.71%</span></td>
+</tr>
+
+<tr>
+<td>Socio-cultural Interpretation</td>
+<td class="a">80.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:80px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">65.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:65px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-15.00%</span></td>
+</tr>
+
+<tr>
+<td>Melodic Structure Interpretation</td>
+<td class="a">72.73% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:72px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">57.58% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:57px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-15.15%</span></td>
+</tr>
+
+<tr>
+<td>Acoustic Source Inference</td>
+<td class="a">93.75% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:93px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">77.08% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:77px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-16.67%</span></td>
+</tr>
+
+<tr>
+<td>Instrumentation</td>
+<td class="a">85.71% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:85px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">68.57% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:68px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-17.14%</span></td>
+</tr>
+
+<tr>
+<td>Emotion State summarisation</td>
+<td class="a">52.27% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:52px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">34.09% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:34px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-18.18%</span></td>
+</tr>
+
+<tr>
+<td>Harmony and Chord Progressions</td>
+<td class="a">57.58% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:57px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">39.39% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:39px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-18.18%</span></td>
+</tr>
+
+<tr>
+<td>Emotional Tone Interpretation</td>
+<td class="a">93.94% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:93px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">72.73% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:72px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-21.21%</span></td>
+</tr>
+
+<tr>
+<td>Musical Texture Interpretation</td>
+<td class="a">88.24% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:88px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">55.88% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:55px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-32.35%</span></td>
+</tr>
+
+<tr>
+<td>Ambient Sound Interpretation</td>
+<td class="a">77.08% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:77px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">43.75% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:43px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-33.33%</span></td>
+</tr>
+
+<tr>
+<td>Sound-Based Event Recognition</td>
+<td class="a">91.30% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:91px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">47.83% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:47px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-43.48%</span></td>
+</tr>
+
+<tr>
+<td>Acoustic Scene Reasoning</td>
+<td class="a">75.00% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:75px; height:10px;"></div>
+    </div>
+    </td>
+<td class="b">31.25% 
+    <div style="background:#eee; width:100px; height:10px; display:inline-block;">
+        <div style="background:#4caf50; width:31px; height:10px;"></div>
+    </div>
+    </td>
+<td><span style="color:red">-43.75%</span></td>
+</tr>
+</table></div></body></html>

@@ -14,9 +14,13 @@ class Qwen2AudioAQA:
         self.processor = AutoProcessor.from_pretrained(model_name)
 
         self.sys_prompt = (
-            "You are an audio question answering system. "
-            "Answer the question based only on the given audio. "
-            "Keep the answer concise and accurate."
+            # 官方模板
+            "You are a helpful assistant."
+
+            # Customized prompt for AQA
+            # "You are an audio question answering system. "
+            # "Answer the question based only on the given audio. "
+            # "Keep the answer concise and accurate."
         )
 
     def build_prompt(self, question, choices):
@@ -24,23 +28,23 @@ class Qwen2AudioAQA:
             [f"{chr(65+i)}. {c}" for i, c in enumerate(choices)]
         )
 
-        few_shot = (
-            "Example:\n"
-            "Question: What is the sound?\n"
-            "A. Dog\nB. Cat\nC. Car\nD. Rain\n"
-            "Answer: A\n\n"
-        )
+        # few_shot = (
+        #     "Example:\n"
+        #     "Question: What is the sound?\n"
+        #     "A. Dog\nB. Cat\nC. Car\nD. Rain\n"
+        #     "Answer: A\n\n"
+        # )
 
         prompt = (
-            f"{few_shot}"
-            f"{question}\n"
-            f"{option_str}\n"
+            # f"{few_shot}"
+            f"Question: {question}\n"
+            f"Choices:\n{option_str}\n"
             "Select the correct answer. Respond with only A, B, C, or D."
         )
 
         return prompt
 
-    def infer(self, audio_path, question, choices, max_new_tokens=128, test_mode=False):
+    def infer(self, audio_path, question, choices, max_new_tokens=256, test_mode=False):
         question = self.build_prompt(question, choices)
 
         if test_mode:
