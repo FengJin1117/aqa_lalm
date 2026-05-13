@@ -28,9 +28,9 @@ import argparse
 AUDIO_ROOT = "../datasets/test-mini-audios"
 JSON_PATH = "./data/mmau-test-mini.json"
 
-# 这里是可以动态改变的（这里是qwen3-captioner标注的）
-# CAPTION_PATH = "./data/mmau-test-mini-captions.jsonl"
-CAPTION_PATH = "/data2/fwh/project_bagpiper/outputs/bagpiper_caption.jsonl"
+# 这里是可以动态改变的
+CAPTION_PATH = "./data/mmau-test-mini-captions.jsonl" # （这里是qwen3-captioner标注的）
+# CAPTION_PATH = "/data2/fwh/project_bagpiper/outputs/bagpiper_caption.jsonl"
 
 def load_captions():
     """加载 caption jsonl -> dict[id] = caption"""
