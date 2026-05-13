@@ -1,20 +1,24 @@
 # LALM AQA
-这是一个统一 **LALM AQA推理封装**项目。
+这是一个统一 **LALM AQA推理封装**项目。支持各类Audio QA Benchmark的评测。
 输入格式：audio + question
 
 ## 📦支持的模型
 - ✅Qwen2.5-Omni-7B
 - ✅Qwen2-Audio-7B-Instruct
 
+外部模型API：
+- ✅️DeepSeek API（仅支持纯文本回答）
+这里需要：`pip install -e /data2/fwh/llm_processor`。这个包还在开发当中。
+
 ## 支持的Benchmark
 - ✅️MMAU
 
 ## 支持的问答方式
 - ✅️AQA
-- ✅️Full Caption（基于Caption回答问题）
+- ✅️Text-only QA。比如基于Caption回答问题
 
 # Quickstart
-## 启动docker
+## 启动docker环境
 
 ```
 docker exec -it qwen_omni bash
@@ -28,6 +32,17 @@ cd /workspace/aqa_lalm
 docker stop qwen_omni
 docker start qwen_omni
 ```
+
+## 
+
+nohup python run_eval.py \
+  --model QwenOmni \
+  --prompt_type caption_only \
+  --max_samples 1000
+
+- aqa：直接基于audio问答
+- caption_aqa：
+- caption_only：基于caption回答问题
 
 ## 启动vllm
 

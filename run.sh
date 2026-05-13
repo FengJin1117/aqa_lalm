@@ -19,10 +19,16 @@ python compare_results.py \
     --name_a "Direct AQA" --name_b "Caption-Reasoning-Answer"
 
 # 
-nohup python run_eval.py \
+CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
   --model QwenOmni \
   --prompt_type caption_only \
-  --max_samples 1000  > logs/qwenomni_caption_only.log 2>&1 &
+  --max_samples 1000  > logs/cap:bagpiper_ans:qwenomni_caption_only.log 2>&1 &
+
+
+CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
+  --model deepseek \
+  --prompt_type caption_only \
+  --max_samples 1000  > logs/cap:bagpiper_ans:deepseek_caption_only.log 2>&1 &
 
 python compare_results.py \
     -a outputs/QwenOmni/direct_aqa_results.json \

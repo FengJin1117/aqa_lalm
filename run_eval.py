@@ -19,14 +19,18 @@ logging.getLogger().setLevel(logging.ERROR)
 
 from models.qwen_omni import QwenOmni
 from models.qwen2_audio import Qwen2AudioAQA
+from models.deepseek_text import DeepSeekText
 
 from eval.mmau_eval import evaluate
 import argparse
 
+# MMAU 数据集路径配置
 AUDIO_ROOT = "../datasets/test-mini-audios"
 JSON_PATH = "./data/mmau-test-mini.json"
-CAPTION_PATH = "./data/mmau-test-mini-captions.jsonl"
 
+# 这里是可以动态改变的（这里是qwen3-captioner标注的）
+# CAPTION_PATH = "./data/mmau-test-mini-captions.jsonl"
+CAPTION_PATH = "/data2/fwh/project_bagpiper/outputs/bagpiper_caption.jsonl"
 
 def load_captions():
     """加载 caption jsonl -> dict[id] = caption"""
@@ -101,7 +105,7 @@ def cli():
     parser.add_argument(
         "--model",
         type=str,
-        choices=["QwenOmni", "Qwen2Audio"],
+        choices=["QwenOmni", "Qwen2Audio", "deepseek"],
         default="QwenOmni"
     )
     parser.add_argument(
@@ -129,6 +133,13 @@ def cli():
         model = QwenOmni()
     elif args.model == "Qwen2Audio":
         model = Qwen2AudioAQA()
+    elif args.model == "deepseek":
+        if args.prompt_type != "caption_only":
+            raise ValueError(
+                "deepseek only supports caption_only mode"
+            )
+
+        model = DeepSeekText()
     else:
         raise ValueError(f"Unsupported model: {args.model}")
 
