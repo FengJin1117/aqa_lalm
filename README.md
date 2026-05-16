@@ -54,6 +54,19 @@ python analyze_results.py -i outputs/*.json
 ```
 
 # TODO
+
+- 这里 run_eval.py 的需要合并 "aqa", "caption_aqa"。本质上都是基于audio问答的，只不过一个是直接问答，一个是先生成caption再问答。可以通过参数控制是否生成caption。
+
+```
+parser.add_argument(
+    "--prompt_type",
+    type=str,
+    choices=["aqa", "caption_aqa", "caption_only"],
+    default="aqa"
+)
+```
+
+# TODO
 - 输出的结果文件不要用时间戳表示了，太多了，根本不知道语境了。比如改成：模型名_问答方式_results.json
 
 > 一旦进行reasoning，模型的**推理速度会大幅下降**Sd96xnbcvr08。我们需要一些优化手段来提升推理效率。

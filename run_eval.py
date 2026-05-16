@@ -28,25 +28,21 @@ import argparse
 AUDIO_ROOT = "../datasets/test-mini-audios"
 JSON_PATH = "./data/mmau-test-mini.json"
 
-# 这里是可以动态改变的
-CAPTION_PATH = "./data/mmau-test-mini-captions.jsonl" # （这里是qwen3-captioner标注的）
-# CAPTION_PATH = "/data2/fwh/project_bagpiper/outputs/bagpiper_caption.jsonl"
-
-def load_captions():
+def load_captions(caption_path):
     """加载 caption jsonl -> dict[id] = caption"""
     captions = {}
-    with open(CAPTION_PATH, "r") as f:
+    with open(caption_path, "r") as f:
         for line in f:
             item = json.loads(line)
             captions[item["id"]] = item["caption"]
     return captions
 
 
-def load_local_dataset(use_caption=False):
+def load_local_dataset(use_caption=False, caption_path=None):
     with open(JSON_PATH, "r") as f:
         data = json.load(f)
 
-    captions = load_captions() if use_caption else {}
+    captions = load_captions(caption_path) if use_caption else {}
 
     dataset = []
     for sample in data:
@@ -119,15 +115,25 @@ def cli():
         choices=["aqa", "caption_aqa", "caption_only"],
         default="aqa"
     )
+    parser.add_argument(
+        "--caption_path",
+        type=str,
+        default=None,
+        help="Path to caption jsonl. Required when prompt_type is caption_only."
+    )
 
     args = parser.parse_args()
 
     
     # 🔥 关键：是否启用 caption
     use_caption = args.prompt_type in ["caption_only"]
+    if use_caption and args.caption_path is None:
+        raise ValueError(
+            "--caption_path is required when prompt_type is caption_only"
+        )
 
     # 加载数据集
-    dataset = load_local_dataset(use_caption=use_caption)
+    dataset = load_local_dataset(use_caption=use_caption, caption_path=args.caption_path)
 
     if args.model == "QwenOmni":
         model = QwenOmni()

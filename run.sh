@@ -28,7 +28,27 @@ CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
 CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
   --model deepseek \
   --prompt_type caption_only \
-  --max_samples 1000  > logs/cap:bagpiper_ans:deepseek_caption_only.log 2>&1 &
+  --max_samples 1000  > logs/cap:qwne3A3B_ans:deepseek_caption_only.log 2>&1 &
+
+CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
+  --model QwenOmni \
+  --prompt_type caption_only \
+  --caption_path /data2/fwh/audio_caption/outputs/captions.jsonl \
+  --max_samples 1000  > logs/cap:qwne25omni_ans:qwenomni_caption_only.log 2>&1 &
+
+CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
+  --model QwenOmni \
+  --prompt_type caption_only \
+  --caption_path /data2/fwh/audio_caption/outputs/captions.jsonl \
+  --max_samples 1000  > logs/cap:qwne25omni_ans:qwenomni_caption_only.log 2>&1 &
+
+CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
+  --model QwenOmni \
+  --prompt_type caption_only \
+  --caption_path /data2/fwh/audio_caption/outputs/captions_empty.jsonl \
+  --max_samples 1000  > logs/cap:empty_ans:qwenomni_caption_only.log 2>&1 &
+
+
 
 python compare_results.py \
     -a outputs/QwenOmni/direct_aqa_results.json \
