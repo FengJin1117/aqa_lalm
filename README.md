@@ -1,5 +1,5 @@
 # LALM AQA
-这是一个统一 **LALM AQA推理封装**项目。支持各类Audio QA Benchmark的评测。
+这是一个统一 **LALM AQA推理封装**项目。**支持各类Audio QA Benchmark的评测**。
 输入格式：audio + question
 
 ## 📦支持的模型
@@ -33,15 +33,47 @@ docker stop qwen_omni
 docker start qwen_omni
 ```
 
-## 
+## Caption 推理
 
+模型相关参数放在 `conf/{caption_model}.yaml`，目前包含：
+
+- `hf_tag`
+- `max_new_tokens`
+- `prompt`
+
+推理入口只保留数据输入、输出位置和选择哪个 caption 模型。生成时会一边 caption 一边写入 jsonl，格式为 `{"id": 音频文件名去后缀, "caption": caption文本}`。
+
+
+“两种 benchmark 回答模式”：aqa 和 caption_qa
+- aqa：直接基于音频问答
+- caption_qa：基于caption文本问答
+
+```bash
+# 基于音频回答
+python run_eval.py --benchmark_mode aqa --audio_model QwenOmni --max_samples 1000
+
+# 基于 caption 回答
+python run_eval.py \
+  --benchmark_mode caption_qa \
+  --caption_path data/mmau-test-mini-captions.jsonl \
+  --max_samples 1000
+```
+
+如需使用 Qwen2.5-Omni 生成 caption，把 `--caption_model` 改成 `qwen25_omni` 即可，对应配置文件为 `conf/qwen25_omni.yaml`。
+
+## MMAU 评测
+
+```bash
 nohup python run_eval.py \
+  --task eval \
   --model QwenOmni \
   --prompt_type caption_only \
+  --caption_path ./outputs/qwen3_captioner/mmau-test-mini-captions.jsonl \
   --max_samples 1000
+```
 
 - aqa：直接基于audio问答
-- caption_aqa：
+- caption_aqa：先描述音频，再基于音频推理回答
 - caption_only：基于caption回答问题
 
 ## 启动vllm
@@ -65,6 +97,8 @@ parser.add_argument(
     default="aqa"
 )
 ```
+
+- 修改jsonl格式。
 
 # TODO
 - 输出的结果文件不要用时间戳表示了，太多了，根本不知道语境了。比如改成：模型名_问答方式_results.json

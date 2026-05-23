@@ -10,3 +10,6 @@ examples/
 *.wav
 *.pt
 *.ckpt
+
+# 临时
+tmp/

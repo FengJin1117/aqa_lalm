@@ -9,23 +9,42 @@ from prompts.aqa_prompt import AQAPrompt
 from prompts.caption_aqa_prompt import CaptionAQAPrompt
 from prompts.caption_only_prompt import CaptionOnlyPrompt
 
-def extract_choice(pred):
-    pred = pred.strip().upper()
+def extract_choice(pred, num_choices=4):
+    if pred is None:
+        return None
 
-    if "ASSISTANT" in pred:
-        pred = pred.split("ASSISTANT")[-1]
+    pred = pred.strip()
 
-    # 优先匹配 "ANSWER IS X"
-    match = re.search(r"ANSWER\s+IS\s+([ABCD])", pred)
+    # 只取 assistant 后面的最终回答，避免匹配 prompt 里的 Choices
+    m = re.search(r"assistant\s*\n?(.*)$", pred, flags=re.IGNORECASE | re.DOTALL)
+    if m:
+        pred = m.group(1).strip()
+
+    valid_choices = "".join(chr(65 + i) for i in range(num_choices))
+    pattern = f"[{valid_choices}]"
+
+    # ANSWER IS X / ANSWER: X / FINAL ANSWER: X
+    match = re.search(
+        rf"(?:FINAL\s+ANSWER|ANSWER)\s*(?:IS|:)?\s*({pattern})\b",
+        pred,
+        flags=re.IGNORECASE,
+    )
     if match:
-        return match.group(1)
+        return match.group(1).upper()
 
-    matches = re.findall(r"\b([ABCD])\b", pred)
-    if matches:
-        return matches[-1]
+    # 明确选项格式：D. xxx / D: xxx / D) xxx
+    match = re.search(rf"^\s*({pattern})\s*[\.\:\)]", pred, flags=re.IGNORECASE)
+    if match:
+        return match.group(1).upper()
+
+    # 极简输出：只有 A/B/C/D/E
+    match = re.fullmatch(rf"\s*({pattern})\s*", pred, flags=re.IGNORECASE)
+    if match:
+        return match.group(1).upper()
 
     return None
 
+    
 def evaluate(model, dataset, output_path, prompt_type="aqa", max_samples=None):
     corr, total = 0, 0
     task_correct = {"sound": 0, "speech": 0, "music": 0}
@@ -41,14 +60,14 @@ def evaluate(model, dataset, output_path, prompt_type="aqa", max_samples=None):
 
         if prompt_type == "aqa":
             prompt = AQAPrompt()
-        elif prompt_type == "caption_aqa":
-            prompt = CaptionAQAPrompt()
-        elif prompt_type == "caption_only":
+        # elif prompt_type == "caption_aqa":
+        #     prompt = CaptionAQAPrompt()
+        elif prompt_type == "caption_qa":
             prompt = CaptionOnlyPrompt()
         else:
             raise ValueError(f"Unknown prompt_type: {prompt_type}")
         
-        if prompt_type == "caption_only":
+        if prompt_type == "caption_qa":
             # 纯 caption 模式不使用音频路径
             conversation = prompt.build(
                 question=sample["question"],
@@ -65,7 +84,7 @@ def evaluate(model, dataset, output_path, prompt_type="aqa", max_samples=None):
 
         pred = model.infer(conversation, debug=False) 
 
-        pred_choice = extract_choice(pred)
+        pred_choice = extract_choice(pred, num_choices=len(sample["choices"]))
 
         gt_idx = sample["choices"].index(sample["answer"])
         gt_choice = chr(65 + gt_idx)
@@ -126,3 +145,28 @@ def evaluate(model, dataset, output_path, prompt_type="aqa", max_samples=None):
 
     print(f"Saved results to {output_path}")
     return acc, task_acc
+
+
+def write_captions_jsonl(model, audio_paths, output_path, max_samples=None):
+    """Generate captions and write one JSONL record immediately per audio."""
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if max_samples:
+        audio_paths = audio_paths[:max_samples]
+
+    total = 0
+    with output_path.open("w", encoding="utf-8") as f:
+        for audio_path in tqdm(audio_paths, leave=True):
+            caption = model.infer(str(audio_path)).strip()
+            record = {
+                "id": Path(audio_path).stem,
+                "caption": caption,
+            }
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            f.flush()
+            total += 1
+
+    print(f"Saved {total} captions to {output_path}")
+    return total
+

@@ -1,0 +1,3 @@
+hf_tag: Qwen/Qwen3-Omni-30B-A3B-Captioner
+max_new_tokens: 16384
+prompt: ""

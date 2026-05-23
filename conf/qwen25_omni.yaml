@@ -1,0 +1,5 @@
+hf_tag: Qwen/Qwen2.5-Omni-7B
+max_new_tokens: 512
+prompt: >-
+  Describe the audio in detail. Include the main sound events, speakers,
+  music, background environment, temporal order, and any notable acoustic cues.

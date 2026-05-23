@@ -45,12 +45,38 @@ CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
 CUDA_VISIBLE_DEVICES=6 nohup python run_eval.py \
   --model QwenOmni \
   --prompt_type caption_only \
+  --caption_path data/mmau-test-mini-shuffled-with-choice.json \
+  --max_samples 1000  > logs/cap:empty_ans:qwenomni_caption_only_shuffle.log 2>&1 &
+
+CUDA_VISIBLE_DEVICES=6 python run_eval.py \
+  --benchmark_mode caption_qa \
   --caption_path /data2/fwh/audio_caption/outputs/captions_empty.jsonl \
-  --max_samples 1000  > logs/cap:empty_ans:qwenomni_caption_only.log 2>&1 &
+  --max_samples 1000  > logs/cap:empty_ans:qwenomni_caption_only_shuffle.log 2>&1 &
 
-
+CUDA_VISIBLE_DEVICES=6 python run_eval.py \
+  --benchmark_mode caption_qa \
+  --text_model QwenOmni \
+  --caption_path /data2/fwh/audio_caption/outputs/captions_empty.jsonl \
+  --max_samples 1000  > logs/cap:empty_ans:qwenomni_caption_only_shuffle_fixbug.log 2>&1 &
 
 python compare_results.py \
     -a outputs/QwenOmni/direct_aqa_results.json \
     -b outputs/QwenOmni/caption_only_results.json \
     --name_a "Direct AQA" --name_b "Based on Qwen3 Captioner Caption"
+
+# MMSU
+
+CUDA_VISIBLE_DEVICES=6 python run_eval.py \
+  --mode caption_qa \
+  --benchmark MMSU
+  --text_model QwenOmni \
+  --caption_path /data2/fwh/audio_caption/outputs/captions_empty.jsonl \
+  --max_samples 1000  > logs/cap:empty_ans:qwenomni_caption_only_shuffle_fixbug.log 2>&1 &
+
+# Qwen 35 omni caption
+
+CUDA_VISIBLE_DEVICES=4 python run_eval.py \
+  --benchmark_mode caption_qa \
+  --text_model QwenOmni \
+  --caption_path /data2/fwh/audio_caption/outputs/mmau_captions_qwen35omniplus.jsonl \
+  --max_samples 1000  > logs/cap:qwen35omni_ans:qwenomni_caption_only.log 2>&1 &
