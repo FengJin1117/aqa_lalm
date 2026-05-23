@@ -8,12 +8,13 @@ MODEL="Qwen/Qwen3-4B-Instruct-2507"
 SERVED_MODEL="Qwen3-4B-Instruct-2507"
 HOST="127.0.0.1"
 BASE_PORT=8000
-GPUS=(4 5 6 7)
-# GPUS=(6 7)
+# GPUS=(4 5 6 7)
+# 给多GPU用的（只管数目）
+GPUS=(6 7)
 EXP_DIR="exp/vllm_parallel"
 
 serve_one() {
-  local gpu="${1:-4}"
+  local gpu="${1:-6}"
   local port="${2:-8000}"
 
   CUDA_VISIBLE_DEVICES="${gpu}" \
@@ -27,7 +28,8 @@ serve_one() {
 }
 
 serve_many() {
-  local count="${1:-4}"
+  # 使用GPU的数据
+  local count="${1:-2}"
   mkdir -p "${EXP_DIR}/logs"
 
   for idx in $(seq 0 $((count - 1))); do

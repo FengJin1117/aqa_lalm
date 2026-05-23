@@ -57,7 +57,17 @@ python run_eval.py \
   --benchmark_mode caption_qa \
   --caption_path data/mmau-test-mini-captions.jsonl \
   --max_samples 1000
+
+# 可以指定vllm服务布置在哪个gpu
+python run_eval.py \
+  --benchmark_mode caption_qa \
+  --caption_path /data2/fwh/audio_caption/outputs/captions_empty.jsonl \
+  --vllm_gpu 6 \
+  --max_samples 1000 > logs/cap:empty_ans:wen3-4B-instruct_caption_only.log 2>&1 & 
 ```
+
+
+
 
 如需使用 Qwen2.5-Omni 生成 caption，把 `--caption_model` 改成 `qwen25_omni` 即可，对应配置文件为 `conf/qwen25_omni.yaml`。
 

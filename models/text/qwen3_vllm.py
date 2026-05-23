@@ -1,7 +1,8 @@
 import json
 import urllib.error
 import urllib.request
-
+import time
+import socket
 
 class Qwen3VLLMText:
     def __init__(
@@ -10,13 +11,18 @@ class Qwen3VLLMText:
         model_name="Qwen3-4B-Instruct-2507",
         temperature=0.0,
         max_tokens=256,
-        timeout=120.0,
+        timeout=300.0,
+        max_retries=3,
+        retry_sleep=5.0,
     ):
         self.base_url = base_url.rstrip("/")
         self.model_name = model_name
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.timeout = timeout
+
+        self.max_retries = max_retries
+        self.retry_sleep = retry_sleep
 
     def infer(self, conversation, debug=False):
         messages = self._conversation_to_messages(conversation)
@@ -70,10 +76,34 @@ class Qwen3VLLMText:
             headers={"Content-Type": "application/json"},
             method="POST",
         )
-        try:
-            with urllib.request.urlopen(request, timeout=self.timeout) as response:
-                body = response.read().decode("utf-8")
-                return json.loads(body)
-        except urllib.error.HTTPError as exc:
-            body = exc.read().decode("utf-8", errors="replace")
-            raise RuntimeError(f"vLLM request failed: HTTP {exc.code}: {body}") from exc
+
+        last_error = None
+
+        for attempt in range(1, self.max_retries + 1):
+            try:
+                with urllib.request.urlopen(request, timeout=self.timeout) as response:
+                    body = response.read().decode("utf-8")
+                    return json.loads(body)
+
+            except urllib.error.HTTPError as exc:
+                body = exc.read().decode("utf-8", errors="replace")
+                last_error = RuntimeError(
+                    f"vLLM request failed: HTTP {exc.code}: {body}"
+                )
+
+            except (
+                urllib.error.URLError,
+                TimeoutError,
+                socket.timeout,
+                json.JSONDecodeError,
+                RuntimeError,
+            ) as exc:
+                last_error = exc
+
+            print(f"[WARN] vLLM request failed ({attempt}/{self.max_retries}): {last_error}")
+
+            if attempt < self.max_retries:
+                time.sleep(self.retry_sleep)
+
+        print(f"[ERROR] Skip this sample after {self.max_retries} failed retries: {last_error}")
+        return {"choices": [{"message": {"content": ""}}]}

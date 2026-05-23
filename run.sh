@@ -82,7 +82,7 @@ CUDA_VISIBLE_DEVICES=4 python run_eval.py \
   --max_samples 1000  > logs/cap:qwen35omni_ans:qwenomni_caption_only.log 2>&1 &
 
 
-# 
+# 4B
 CUDA_VISIBLE_DEVICES=4 python run_eval.py \
   --benchmark_mode caption_qa \
   --text_model Qwen3-4B-Instruct-2507 \
@@ -90,3 +90,38 @@ CUDA_VISIBLE_DEVICES=4 python run_eval.py \
   --max_samples 1000  > logs/cap:empty_ans:wen3-4B-instruct_caption_only.log 2>&1 &
 
 
+CUDA_VISIBLE_DEVICES=4 python run_eval.py \
+  --benchmark_mode caption_qa \
+  --caption_path /data2/fwh/audio_caption/outputs/captions_empty.jsonl \
+  --max_samples 1000 > logs/cap:empty_ans:wen3-4B-instruct_caption_only.log 2>&1 &
+
+# Qwen3-4B-Instruct-2507
+
+## 
+CUDA_VISIBLE_DEVICES=4 python run_eval.py \
+  --benchmark_mode caption_qa \
+  --vllm_gpu 6 \
+  --caption_path data/captions/mmau_captions_qwen25omni.jsonl \
+  --max_samples 1000  > logs/cap:qwen25omni_ans:qwen3-4B-instruct_caption_only.log 2>&1 &
+
+## captioner
+python run_eval.py \
+  --benchmark_mode caption_qa \
+  --vllm_gpu 6 \
+  --caption_path /data2/fwh/aqa_lalm/data/captions/mmau-test-mini-captions-captioner.jsonl \
+  --max_samples 1000  > logs/cap:captioner_ans:qwen3-4B-instruct_caption_only.log 2>&1 &
+
+python run_eval.py \
+  --benchmark_mode caption_qa \
+  --vllm_gpu 7 \
+  --caption_path /data2/fwh/aqa_lalm/data/captions/mmau_captions_qwen35omniplus.jsonl \
+  --max_samples 1000  > logs/cap:qwen35omniplus_ans:qwen3-4B-instruct_caption_only.log 2>&1 &
+
+## bagpiper
+
+
+python run_eval.py \
+  --benchmark_mode caption_qa \
+  --vllm_gpu 7 \
+  --caption_path /data2/fwh/aqa_lalm/data/captions/mmau_captions_bagpiper.jsonl \
+  --max_samples 1000  > logs/cap:qwen35omniplus_ans:qwen3-4B-instruct_caption_only.log 2>&1 &
