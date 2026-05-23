@@ -45,7 +45,7 @@ def extract_choice(pred, num_choices=4):
     return None
 
     
-def evaluate(model, dataset, output_path, prompt_type="aqa", max_samples=None):
+def evaluate(model, dataset, output_path, prompt_type="aqa", max_samples=None, answer_model=None):
     corr, total = 0, 0
     task_correct = {"sound": 0, "speech": 0, "music": 0}
     task_total = {"sound": 0, "speech": 0, "music": 0}
@@ -105,6 +105,7 @@ def evaluate(model, dataset, output_path, prompt_type="aqa", max_samples=None):
         results.append({
             "id": sample.get("id"),
             "correct": int(is_correct),  # 放在第2位（0/1更方便统计）
+            "answer_model": answer_model,
 
             "question": sample.get("question"),
             "choices": sample.get("choices"),  # ✅ 新增
@@ -169,4 +170,3 @@ def write_captions_jsonl(model, audio_paths, output_path, max_samples=None):
 
     print(f"Saved {total} captions to {output_path}")
     return total
-

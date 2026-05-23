@@ -80,3 +80,13 @@ CUDA_VISIBLE_DEVICES=4 python run_eval.py \
   --text_model QwenOmni \
   --caption_path /data2/fwh/audio_caption/outputs/mmau_captions_qwen35omniplus.jsonl \
   --max_samples 1000  > logs/cap:qwen35omni_ans:qwenomni_caption_only.log 2>&1 &
+
+
+# 
+CUDA_VISIBLE_DEVICES=4 python run_eval.py \
+  --benchmark_mode caption_qa \
+  --text_model Qwen3-4B-Instruct-2507 \
+  --caption_path /data2/fwh/audio_caption/outputs/captions_empty.jsonl \
+  --max_samples 1000  > logs/cap:empty_ans:wen3-4B-instruct_caption_only.log 2>&1 &
+
+

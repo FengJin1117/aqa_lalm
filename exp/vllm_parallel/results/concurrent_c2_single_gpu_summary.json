@@ -1,0 +1,21 @@
+{
+  "name": "concurrent_c2_single_gpu",
+  "model": "Qwen3-4B-Instruct-2507",
+  "base_urls": [
+    "http://127.0.0.1:8000/v1"
+  ],
+  "concurrency": 2,
+  "num_requests": 40,
+  "success_count": 40,
+  "failure_count": 0,
+  "success_rate": 1.0,
+  "elapsed_s": 32.89449306204915,
+  "throughput_req_s": 1.2160090117378515,
+  "latency_avg_s": 1.6090702271962072,
+  "latency_p50_s": 1.9340122060384601,
+  "latency_p95_s": 1.940374467917718,
+  "latency_p99_s": 1.9410443878755905,
+  "max_tokens": 128,
+  "temperature": 0.0,
+  "created_at": "2026-05-23 04:21:50 UTC"
+}

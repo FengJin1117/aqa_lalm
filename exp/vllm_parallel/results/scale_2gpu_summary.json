@@ -1,0 +1,22 @@
+{
+  "name": "scale_2gpu",
+  "model": "Qwen3-4B-Instruct-2507",
+  "base_urls": [
+    "http://127.0.0.1:8000/v1",
+    "http://127.0.0.1:8001/v1"
+  ],
+  "concurrency": 4,
+  "num_requests": 80,
+  "success_count": 80,
+  "failure_count": 0,
+  "success_rate": 1.0,
+  "elapsed_s": 32.84414481697604,
+  "throughput_req_s": 2.4357461716783892,
+  "latency_avg_s": 1.6236020285403356,
+  "latency_p50_s": 1.930849185679108,
+  "latency_p95_s": 1.9408522546407767,
+  "latency_p99_s": 2.1039353974652437,
+  "max_tokens": 128,
+  "temperature": 0.0,
+  "created_at": "2026-05-23 04:23:35 UTC"
+}

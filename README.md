@@ -80,6 +80,31 @@ nohup python run_eval.py \
 
 vllm serve /path/to/Qwen2.5-Omni-7B/ --port 8000 --host 127.0.0.1 --dtype bfloat16
 
+
+## Qwen3-4B-Instruct-2507 vLLM 性能测试
+
+实验目录：`exp/vllm_parallel/`
+
+使用 `conda run -n vllm`，在 GPU 4-7 上测试 `Qwen/Qwen3-4B-Instruct-2507`。多卡测试采用多实例部署，每张 GPU 启动一个单卡 vLLM 服务，压测客户端按 round-robin 分发请求。
+
+```bash
+# 单卡部署：GPU 4，端口 8000
+bash vllm.sh serve-one 4 8000
+
+# 多实例部署：GPU 4/5/6/7 -> 端口 8000/8001/8002/8003
+bash vllm.sh serve-many 4
+
+# 串行、并发、多实例扩容测试
+bash vllm.sh bench-serial
+bash vllm.sh bench-concurrent
+bash vllm.sh bench-scale
+
+# 生成测试报告
+bash vllm.sh report
+```
+
+详细命令和报告说明见 `exp/vllm_parallel/README.md`，报告输出到 `exp/vllm_parallel/report.md`。
+
 分析结果：
 ```
 python analyze_results.py -i outputs/*.json
